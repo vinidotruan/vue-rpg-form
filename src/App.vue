@@ -1,30 +1,37 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
-</template>
+  <header class="nes-container is-dark">Nome do meu avatar</header>
 
+  <router-view />
+</template>
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  margin: 0;
+  padding: 0;
   text-align: center;
-  color: #2c3e50;
+  transition: 0.5s;
 }
 
-#nav {
-  padding: 30px;
+body {
+  background-color: #212529;
+  color: white;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+header {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+main {
+  margin-top: 1rem;
+}
+
+label {
+  color: #fff;
+}
+
+.nes-container {
+  margin-top: 1rem !important;
 }
 </style>
