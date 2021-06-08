@@ -9,7 +9,6 @@
       <p>{{ $route.name }}</p>
     </div>
   </header>
-  {{ route.meta.transition }}
   <router-view v-slot="{ Component, route }">
     <transition :name="route.meta.transitionName">
       <component :is="Component" />
@@ -18,19 +17,17 @@
 </template>
 
 <script>
-import { reactive } from "vue";
-
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+// import { LoggedUser } from "@/models/logged-user";
 export default {
   name: "App",
   setup() {
+    const store = useStore();
     const route = useRoute();
-    const state = reactive({
-      props: {
-        transitionName: "",
-      },
-    });
-    return { state, route };
+    // const loggedUser = new
+
+    return { route, store };
   },
 };
 </script>
