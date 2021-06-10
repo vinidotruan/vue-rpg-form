@@ -3,6 +3,7 @@ export class LoggedUser {
   family_name = "";
   given_name = "";
   granted_scopes = "";
+  hd = "";
   id = "";
   locale = "";
   name = "";

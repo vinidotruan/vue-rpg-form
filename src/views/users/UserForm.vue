@@ -1,13 +1,10 @@
 <template>
-  <div class="user-form">
+  <div class="user-form container">
     <form @submit.prevent="onSubmit">
-      <div class="nes-container is-dark with-title is-centered">
+      <div class="container">
         <p class="title">Atributos</p>
 
-        <div
-          style="background-color: #212529; padding: 1rem"
-          class="nes-field is-inline"
-        >
+        <div class="c">
           <label for="force">Força</label>
           <input
             type="number"

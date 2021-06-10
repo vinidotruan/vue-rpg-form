@@ -1,9 +1,7 @@
 <template>
-  <header class="nes-container is-dark" v-if="$route.name != 'Login'">
-    <div class="back-button">
-      <button class="nes-btn is-warning" @click="$router.go(-1)" id="goBack">
-        <span> > </span>
-      </button>
+  <header class="header" v-if="$route.name != 'Login'">
+    <div class="back-button" @click="$router.go(-1)" id="goBack">
+      <span class="material-icons">arrow_back_ios_new</span>
     </div>
     <div class="title">
       <p>{{ $route.name }}</p>
@@ -17,17 +15,33 @@
 </template>
 
 <script>
+import { computed } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import firebase from "firebase";
+
 // import { LoggedUser } from "@/models/logged-user";
 export default {
   name: "App",
   setup() {
     const store = useStore();
     const route = useRoute();
-    // const loggedUser = new
+    const getLoggedUser = computed(() => store.state.loggedUser);
 
-    return { route, store };
+    if (!getLoggedUser.value.id) {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((response) => {
+          store.dispatch("setLoggedUser", response.additionalUserInfo.profile);
+        })
+        .catch((err) => {
+          console.log("erro", err);
+        });
+    }
+    // store.
+    return { route, store, getLoggedUser };
   },
 };
 </script>
@@ -41,8 +55,9 @@ export default {
 }
 
 body {
-  background-color: #212529;
+  background: linear-gradient(#5c27fe, #36198b);
   color: white;
+  min-height: 100vh;
 }
 
 main {
@@ -51,6 +66,20 @@ main {
 
 label {
   color: #fff;
+}
+
+p {
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.paragraph {
+  font-size: 12px;
 }
 
 // Transitions
@@ -104,19 +133,12 @@ label {
   right: 0;
 }
 
-.nes-container {
-  margin-top: 1rem !important;
-}
-
 header {
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
-
-  .nes-btn {
-    transform: rotate(180deg);
-  }
+  padding: 1rem;
 
   .back-button {
     width: 20%;
@@ -134,6 +156,53 @@ header {
 
     p {
       margin: 0;
+    }
+  }
+}
+
+.container {
+  display: flex;
+}
+
+.full-height {
+  flex: auto;
+}
+
+.box {
+  background: white;
+  display: flex;
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 0 10px 10px rgb(0, 0, 0, 0.2);
+  margin-top: 2rem;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  * {
+    color: #414141 !important;
+  }
+
+  .item {
+    display: flex;
+    height: 3rem;
+    background-color: #dedede;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0.5rem;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px 1px rgb(0, 0, 0, 0.6);
+    margin: 0.5rem;
+    span.material-icons-outlined {
+      margin: 0 1rem;
+    }
+    a {
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
     }
   }
 }
